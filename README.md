@@ -1,5 +1,8 @@
 # jessibuca-vue-demo
 
+# node
+
+node 21.0.0
 
 # run dist
 
