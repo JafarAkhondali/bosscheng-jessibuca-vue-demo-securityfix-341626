@@ -137,8 +137,11 @@ export default {
     this.create();
     window.onerror = (msg) => (this.err = msg);
   },
-  unmounted() {
-    this.jessibuca.destroy();
+  async unmounted() {
+    if(this.jessibuca){
+      await this.jessibuca.destroy();
+      this.jessibuca = null;
+    }
   },
   methods: {
     create(options) {
@@ -294,9 +297,9 @@ export default {
     rotateChange() {
       this.jessibuca.setRotate(this.rotate);
     },
-    destroy() {
+    async destroy() {
       if (this.jessibuca) {
-        this.jessibuca.destroy();
+        await this.jessibuca.destroy();
       }
       this.create();
       this.playing = false;
@@ -327,7 +330,7 @@ export default {
     },
 
 
-    restartPlay(type) {
+    async restartPlay(type) {
 
       if (type === 'mse') {
         this.useWCS = false;
@@ -338,7 +341,7 @@ export default {
         this.useMSE = false
       }
 
-      this.destroy();
+      await this.destroy();
       setTimeout(() => {
         this.play();
       }, 100)
